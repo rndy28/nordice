@@ -1,0 +1,21 @@
+import { Avatar } from "@nordice/core";
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+
+<Meta title="Components/Avatar" component={Avatar} />
+
+export const Template = (args) => <Avatar {...args} />;
+
+# Avatar
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      src: "https://randomuser.me/api/portraits/men/40.jpg",
+      size: "lg",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story name="Fallbak">{Template.bind({})}</Story>
+</Canvas>

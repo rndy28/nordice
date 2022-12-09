@@ -1,0 +1,79 @@
+import { Badge } from "@nordice/core";
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { IconCheck, IconAlertTriangle } from "@tabler/icons";
+
+<Meta title="Components/Badge" component={Badge} />
+
+export const Template = (args) => <Badge {...args} />;
+
+# Badge
+
+<Canvas>
+  <Story
+    name="positive"
+    args={{
+      status: "positive",
+      text: "Positive",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="negative"
+    args={{
+      status: "negative",
+      text: "Negative",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="warning"
+    args={{
+      status: "warning",
+      text: "Warning",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="neutral"
+    args={{
+      status: "neutral",
+      text: "Neutral",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="outline"
+    args={{
+      status: "outline",
+      text: "Outline",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="error"
+    args={{
+      status: "error",
+      text: "Error",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="with icon"
+    args={{
+      status: "warning",
+      withIcon: true,
+      text: "With Icon",
+      withIcon: {
+        element: <IconAlertTriangle size={18} className="inline mr-[4px]" />,
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

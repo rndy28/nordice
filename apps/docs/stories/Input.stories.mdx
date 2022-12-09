@@ -1,0 +1,71 @@
+import { Input } from "@nordice/core";
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { IconEye } from "@tabler/icons";
+
+<Meta title="Components/Input" component={Input} />
+
+export const Template = (args) => <Input {...args} />;
+
+# Input
+
+<Canvas>
+  <Story
+    name="Filled"
+    args={{
+      variant: "filled",
+      placeholder: "Type some shit",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Outline"
+    args={{
+      variant: "outline",
+      size: "md",
+      placeholder: "Type some shit",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Underline"
+    args={{
+      variant: "underline",
+      size: "xs",
+      colorScheme: "secondary",
+      placeholder: "Type some shit",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="With Icon"
+    args={{
+      variant: "outline",
+      placeholder: "Type some shit",
+      size: "md",
+      icon: {
+        element: <IconEye className="text-polarNight2-500" />,
+        placement: "end",
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Error"
+    args={{
+      variant: "underline",
+      placeholder: "Type some shit",
+      size: "md",
+      "aria-invalid": true,
+      icon: {
+        element: <IconEye className="text-polarNight2-500" />,
+        placement: "end",
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

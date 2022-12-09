@@ -1,0 +1,48 @@
+import { Alert } from "@nordice/core";
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { IconCheck, IconAlertTriangle } from "@tabler/icons";
+
+<Meta title="Components/Alert" component={Alert} />
+
+export const Template = (args) => <Alert {...args} />;
+
+# Alert
+
+<Canvas>
+  <Story
+    name="Success"
+    args={{
+      status: "success",
+      children: <Alert.Title>Success</Alert.Title>,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Info"
+    args={{
+      status: "info",
+      children: <Alert.Title>Info</Alert.Title>,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Warning"
+    args={{
+      status: "warning",
+      children: <Alert.Title>Warning</Alert.Title>,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Error"
+    args={{
+      status: "error",
+      children: <Alert.Title>Error</Alert.Title>,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

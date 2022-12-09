@@ -1,0 +1,20 @@
+import { Checkbox } from "@nordice/core";
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+
+<Meta title="Components/Checkbox" component={Checkbox} />
+
+export const Template = (args) => <Checkbox {...args} />;
+
+# Checkbox
+
+<Canvas>
+  <Story
+    name="Checked"
+    args={{
+      defaultChecked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story name="Unchecked">{Template.bind({})}</Story>
+</Canvas>

@@ -1,0 +1,47 @@
+{
+  "name": "@nordice/core",
+  "description": "Core React components for nordice design system",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "keywords": [
+    "design-system",
+    "nord",
+    "react"
+  ],
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --target es6 --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --target es6 --dts --external react",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-turbo": "latest",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "tsup": "^6.3.0",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "@tabler/icons": "^1.103.0",
+    "clsx": "^1.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,17 @@
+import { ThemeSwitcher } from "@nordice/core";
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+
+<Meta title="Components/ThemeSwitcher" component={ThemeSwitcher} />
+
+export const Template = (args) => <ThemeSwitcher {...args} />;
+
+# ThemeSwitcher
+
+<Canvas>
+  <Story name="Light" args={{ theme: "light" }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Dark" args={{ theme: "dark" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>

@@ -1,0 +1,45 @@
+import { Close } from "@nordice/core";
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+
+<Meta title="Components/Close" component={Close} />
+
+export const Template = (args) => <Close {...args} />;
+
+# Close
+
+<Canvas>
+  <Story
+    name="Solid"
+    args={{
+      variant: "solid",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Ghost"
+    args={{
+      variant: "ghost",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Solid Rounded"
+    args={{
+      variant: "solid",
+      rounded: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Ghost Rounded"
+    args={{
+      variant: "ghost",
+      rounded: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
