@@ -28,8 +28,8 @@ const Avatar = ({ src, size = "lg", className, ...props }: Props | FallbackProps
 
   if (!src) {
     return (
-      <div className={mergedClasses}>
-        <svg viewBox="0 0 212 212" className="">
+      <div {...props} className={mergedClasses}>
+        <svg viewBox="0 0 212 212">
           <path
             fill="#DFE5E7"
             d="M106.251.5C164.653.5 212 47.846 212 106.25S164.653 212 106.25 212C47.846 212 .5 164.654.5 106.25S47.846.5 106.251.5z"

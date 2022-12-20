@@ -93,7 +93,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
     const withGapBetweenLoadingText = loadingText && "gap-2";
     const withRelativeLoading = isLoading && "relative";
     const withDisabled =
-      disabled && "shadow-[0_1px_0_rgb(0 0 0 / 45%)] cursor-default opacity-[0.5]";
+      (disabled || isLoading) && "shadow-[0_1px_0_rgb(0 0 0 / 45%)] cursor-default opacity-[0.5]";
     const withPlacement = icon?.placement === "end" && "flex-row-reverse";
     const withPrimaryAdditionalStyles = variant === "solid" && "border-2 border-transparent";
     const withOutlineAdditionalStyles = variant === "outline" && "border-[1px]";

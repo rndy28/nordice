@@ -18,8 +18,8 @@ const getMappedColorScheme = (
 ): TUnionToKeys<Variant, string> => {
   const error = invalid && "border-aurora0";
   return {
-    filled: `bg-snowStorm0-200 text-polarNight2 border-2 ${
-      error ?? "border-transparent hover:border-snowStorm0 active:border-snowStorm0"
+    filled: `bg-snowStorm2-500 text-polarNight2 border-2 ${
+      error ?? "border-transparent hover:border-snowStorm2 active:border-snowStorm2"
     }`,
     outline: `border-2 text-polarNight2 ${
       error ?? "border-snowStorm0-500 hover:border-frost2 active:border-frost2"
