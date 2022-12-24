@@ -1,3 +1,20 @@
-<h1 align="center">Nordly ❄️</h1>
+<h1 align="center">Nordice ❄️</h1>
 
-## This is core react components for nordice design system
+## Install
+
+```sh
+yarn add @nordice/core @nordice/tailwind-config
+```
+
+add this to your tailwind config
+
+```js
+module.exports = {
+  content: [
+    "./node_modules/@nordice/core/**/*.{js,mjs}", 
+    // other content..
+  ],
+  presets: [require("@nordice/tailwind-config")],
+  // other config
+};
+```

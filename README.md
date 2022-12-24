@@ -12,20 +12,6 @@ This design system includes the following:
 - `@nordice/core`: core React components
 - `@nordice/tailwind-config`: tailwind config
 
-### Install
-
-```sh
-npm i @nordice/core
-```
-
-add this to your tailwind config
-
-```js
-module.exports = {
-    content: ["./node_modules/@nordice/core/**/*.{js,mjs}"],
-    // other config
-}
-```
 
 ### Run locally
 
