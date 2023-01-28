@@ -1,5 +1,11 @@
 # @nordice/core
 
+## 0.0.3
+
+### Patch Changes
+
+- 815f572: prop name should be consistent
+
 ## 0.0.2
 
 ### Patch Changes
