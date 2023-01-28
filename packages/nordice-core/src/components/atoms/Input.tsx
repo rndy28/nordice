@@ -9,7 +9,7 @@ interface Props extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
   variant?: Variant;
   htmlSize?: number;
   icon?: TWithIcon;
-  iconWrapperClassName?: string;
+  wrapperClassName?: string;
   isError?: boolean;
 }
 
@@ -54,7 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       variant = "filled",
       icon,
       className,
-      iconWrapperClassName,
+      wrapperClassName,
       htmlSize,
       isError,
       "aria-invalid": invalid,
@@ -87,7 +87,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         withPadding,
         mappedSize[size],
         getMappedColorScheme(invalid)[variant],
-        iconWrapperClassName,
+        wrapperClassName,
       );
 
       return (

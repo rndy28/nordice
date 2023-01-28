@@ -7,19 +7,19 @@ type TStatus = "positive" | "negative" | "neutral" | "warning" | "error" | "outl
 interface Props extends React.ComponentPropsWithoutRef<"span"> {
   status: TStatus;
   text: string;
-  withIcon?: TWithIcon;
+  icon?: TWithIcon;
 }
 
 const mappedStatus: TUnionToKeys<TStatus, string> = {
   positive: "text-[#561ffe] bg-[#f3f0fe]",
   negative: "text-[#fc2154] bg-[#fef2f4]",
   neutral: "text-[#434c5e] bg-[#ecedef]",
-  outline: "text-polarNight1 border-[1px] border-polarNight2-100",
+  outline: "text-polarNight1 border border-polarNight2-100",
   warning: "text-[#ff6b00] bg-[#fef6f0]",
   error: "text-snowStorm1 bg-aurora0",
 };
 
-const Badge = ({ status, className, text, withIcon, ...props }: Props) => {
+const Badge = ({ status, className, text, icon, ...props }: Props) => {
   const mergedClasses = clsx(
     "font-medium text-[13px] rounded-2xl px-4 py-[3px]",
     mappedStatus[status],
@@ -28,7 +28,7 @@ const Badge = ({ status, className, text, withIcon, ...props }: Props) => {
 
   return (
     <span {...props} className={mergedClasses}>
-      {withIcon?.element}
+      {icon?.element}
       {text}
     </span>
   );
