@@ -1,20 +1,28 @@
 import clsx from "clsx";
 import * as React from "react";
-import type { TColorScheme, TMappedSize, TSize, TUnionToKeys, TWithIcon } from "../../types";
+import type { TMappedSize, TSize, TWithIcon,TUnionToKeys } from "../../types";
 
-type Variant = "solid" | "outline" | "ghost" | "link";
-interface Props extends Omit<React.ComponentPropsWithoutRef<"button">, "disabled"> {
+type TButtonVariant = "solid" | "outline" | "ghost" | "link";
+type TButtonColorScheme = "primary" | "secondary" | "warning" | "error";
+
+export type ButtonProps = {
   size?: TSize;
-  variant?: Variant;
-  colorScheme?: TColorScheme;
+  variant?: TButtonVariant;
+  colorScheme?: TButtonColorScheme;
   isLoading?: boolean;
   loadingText?: string;
   isRounded?: boolean;
   spinner?: TWithIcon;
   icon?: TWithIcon;
-}
+};
 
-const mappedColorScheme: TUnionToKeys<Variant, TUnionToKeys<TColorScheme, string>> = {
+type Props = ButtonProps &
+  Omit<React.ComponentPropsWithoutRef<"button">, "disabled">;
+
+const mappedColorScheme: TUnionToKeys<
+  TButtonVariant,
+  TUnionToKeys<TButtonColorScheme, string>
+> = {
   solid: {
     primary: "bg-polarNight2 text-snowStorm2 hover:border-polarNight2-500",
     secondary: "bg-frost3 text-snowStorm2 hover:border-frost3-500",
@@ -23,12 +31,13 @@ const mappedColorScheme: TUnionToKeys<Variant, TUnionToKeys<TColorScheme, string
   },
   ghost: {
     primary: "text-polarNight2 hover:bg-polarNight2-100",
-    secondary: "text-frost2 hover:bg-frost2-100",
+    secondary: "text-frost2 hover:bg-frost2-200",
     error: "text-aurora0 hover:bg-aurora0-100",
     warning: "text-aurora2 hover:bg-aurora2-100",
   },
   outline: {
-    primary: "border-polarNight2 text-polarNight2 hover:bg-polarNight2-100",
+    primary:
+      "border-polarNight2 text-polarNight2 hover:bg-polarNight2 hover:text-snowStorm2",
     secondary: "border-frost2 text-frost2 hover:bg-frost2-100",
     error: "border-aurora0 text-aurora0 hover:bg-aurora0-100",
     warning: "border-aurora2 text-polarNight2 hover:bg-aurora2-100",
@@ -42,10 +51,10 @@ const mappedColorScheme: TUnionToKeys<Variant, TUnionToKeys<TColorScheme, string
 };
 
 const mappedSize: TMappedSize = {
-  xs: "h-9",
-  sm: "h-10",
-  md: "h-11",
-  lg: "h-12",
+  xs: "h-[2.2rem] text-sm",
+  sm: "h-[2.4rem] text-sm",
+  md: "h-[2.6rem] text-[0.913rem]",
+  lg: "h-[2.8rem] text-base",
 };
 
 const DefaultLoader = () => {
@@ -71,6 +80,83 @@ const DefaultLoader = () => {
   );
 };
 
+export function createButtonStyle({
+  children,
+  size = "lg",
+  className,
+  isLoading,
+  loadingText,
+  colorScheme = "primary",
+  variant = "solid",
+  spinner,
+  icon,
+  isRounded,
+  disabled,
+}: ButtonProps &
+  Pick<Props, "className" | "children"> & {
+    disabled?: boolean | "true" | "false";
+  }) {
+  const withTabletRounded = isRounded ? "rounded-3xl" : "rounded-md";
+  const withGapBetweenLoadingText = loadingText && "gap-2";
+  const withRelativeLoading = isLoading && "relative";
+  const withDisabled =
+    (disabled || isLoading) &&
+    "shadow-[0_1px_0_rgb(0 0 0 / 45%)] cursor-default opacity-[0.5]";
+  const withPlacement = icon?.placement === "end" && "flex-row-reverse";
+  const withPrimaryAdditionalStyles =
+    variant === "solid" && "border-2 border-transparent";
+  const withOutlineAdditionalStyles = variant === "outline" && "border-2";
+
+  const withLoadingText = loadingText ?? (
+    <span className="opacity-0">
+      {icon?.element}
+      {children}
+    </span>
+  );
+
+  const withSpinner = spinner?.element ?? <DefaultLoader />;
+
+  const withLoading = isLoading ? (
+    <>
+      <div
+        role="status"
+        className={
+          loadingText
+            ? "pt-[2px]"
+            : "absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
+        }
+      >
+        {withSpinner}
+      </div>
+      {withLoadingText}
+    </>
+  ) : (
+    <>
+      {icon?.element}
+      {children}
+    </>
+  );
+
+  const mergedClasses = clsx(
+    "flex items-center justify-center px-8 transition-all ease-in font-semibold cursor-pointer",
+    mappedColorScheme[variant][colorScheme],
+    mappedSize[size],
+    withRelativeLoading,
+    withGapBetweenLoadingText,
+    withTabletRounded,
+    withDisabled,
+    withPlacement,
+    withPrimaryAdditionalStyles,
+    withOutlineAdditionalStyles,
+    className
+  );
+
+  return {
+    mergedClasses,
+    withLoading,
+  };
+}
+
 const Button = React.forwardRef<HTMLButtonElement, Props>(
   (
     {
@@ -83,67 +169,37 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       variant = "solid",
       spinner,
       icon,
-      isRounded: rounded,
+      isRounded,
       "aria-disabled": disabled,
       ...props
     },
-    ref,
+    ref
   ) => {
-    const withTabletRounded = rounded ? "rounded-3xl" : "rounded-md";
-    const withGapBetweenLoadingText = loadingText && "gap-2";
-    const withRelativeLoading = isLoading && "relative";
-    const withDisabled =
-      (disabled || isLoading) && "shadow-[0_1px_0_rgb(0 0 0 / 45%)] cursor-default opacity-[0.5]";
-    const withPlacement = icon?.placement === "end" && "flex-row-reverse";
-    const withPrimaryAdditionalStyles = variant === "solid" && "border-2 border-transparent";
-    const withOutlineAdditionalStyles = variant === "outline" && "border-[1px]";
-
-    const withLoadingText = loadingText ?? (
-      <span className="opacity-0">
-        {icon?.element}
-        {children}
-      </span>
-    );
-
-    const withSpinner = spinner?.element ?? <DefaultLoader />;
-
-    const mergedClasses = clsx(
-      "flex items-center justify-center px-8 transition-all ease-in cursor-pointer",
-      mappedColorScheme[variant][colorScheme],
-      mappedSize[size],
-      withRelativeLoading,
-      withGapBetweenLoadingText,
-      withTabletRounded,
-      withDisabled,
-      withPlacement,
-      withPrimaryAdditionalStyles,
-      withOutlineAdditionalStyles,
+    const { mergedClasses, withLoading } = createButtonStyle({
+      children,
+      size,
       className,
-    );
+      loadingText,
+      colorScheme,
+      variant,
+      spinner,
+      icon,
+      disabled,
+      isLoading,
+      isRounded,
+    });
 
     return (
-      <button {...props} aria-disabled={isLoading || disabled} className={mergedClasses} ref={ref}>
-        {isLoading ? (
-          <>
-            <div
-              role="status"
-              className={
-                loadingText ? "" : "absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
-              }
-            >
-              {withSpinner}
-            </div>
-            {withLoadingText}
-          </>
-        ) : (
-          <>
-            {icon?.element}
-            {children}
-          </>
-        )}
+      <button
+        aria-disabled={isLoading || disabled}
+        className={mergedClasses}
+        ref={ref}
+        {...props}
+      >
+        {withLoading}
       </button>
     );
-  },
+  }
 );
 
 export default Button;

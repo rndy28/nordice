@@ -1,31 +1,33 @@
 import clsx from "clsx";
 import * as React from "react";
-import type { TMappedSize, TSize, TUnionToKeys, TWithIcon } from "../../types";
+import type { TMappedSize, TSize, TWithIcon,  TUnionToKeys } from "../../types";
+import { IconChevronUp } from "@tabler/icons";
 
-type Variant = "filled" | "outline" | "underline";
+type TInputVariant = "filled" | "outline" | "underline";
 
-interface Props extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
+interface Props
+  extends Omit<React.ComponentPropsWithoutRef<"input">, "size" | "type"> {
   size: TSize;
-  variant?: Variant;
+  type?: React.HTMLInputTypeAttribute | "dropdown" | "combobox";
+  variant?: TInputVariant;
   htmlSize?: number;
   icon?: TWithIcon;
-  wrapperClassName?: string;
-  isError?: boolean;
+  iconWrapperClassName?: string;
 }
 
 const getMappedColorScheme = (
-  invalid: boolean | "false" | "true" | "grammar" | "spelling" | undefined,
-): TUnionToKeys<Variant, string> => {
+  invalid: boolean | "false" | "true" | "grammar" | "spelling" | undefined
+): TUnionToKeys<TInputVariant, string> => {
   const error = invalid && "border-aurora0";
   return {
     filled: `bg-snowStorm2-500 text-polarNight2 border-2 ${
-      error ?? "border-transparent hover:border-snowStorm2 active:border-snowStorm2"
+      error || "border-transparent hover:border-frost2 active:border-frost2"
     }`,
-    outline: `border-2 text-polarNight2 ${
-      error ?? "border-snowStorm0-500 hover:border-frost2 active:border-frost2"
+    outline: `border-2 bg-white text-polarNight2 ${
+      error || "border-frost2"
     }`,
     underline: `text-polarNight2 border-b-2 ${
-      error ?? "border-snowStorm0 hover:border-frost2 active:border-frost2"
+      error || "border-snowStorm0 hover:border-frost2 active:border-frost2"
     }`,
   };
 };
@@ -44,7 +46,8 @@ const mapSizeWithPadding: TMappedSize = {
   lg: "px-4",
 };
 
-const base = "text-sm transition-[border] ease-linear";
+const base =
+  "w-full text-[0.913rem] font-medium transition-[border] ease-linear";
 
 const Input = React.forwardRef<HTMLInputElement, Props>(
   (
@@ -54,13 +57,12 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       variant = "filled",
       icon,
       className,
-      wrapperClassName,
+      iconWrapperClassName,
       htmlSize,
-      isError,
       "aria-invalid": invalid,
       ...props
     },
-    ref,
+    ref
   ) => {
     const isNotUnderline = variant !== "underline";
     const withRounded = isNotUnderline && "rounded-md";
@@ -73,33 +75,33 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       withPadding,
       mappedSize[size],
       getMappedColorScheme(invalid)[variant],
-      className,
+      className
     );
 
     if (icon && "element" in icon) {
       const withPlacement = icon.placement === "end" && "flex-row-reverse";
 
       const mergedIconWrapperClasses = clsx(
-        "flex items-center gap-2 w-fit",
+        "flex items-center gap-2",
         base,
         withRounded,
         withPlacement,
         withPadding,
         mappedSize[size],
         getMappedColorScheme(invalid)[variant],
-        wrapperClassName,
+        iconWrapperClassName
       );
 
       return (
         <div className={mergedIconWrapperClasses}>
           {icon.element}
           <input
-            {...props}
             ref={ref}
             size={htmlSize}
             type={type}
-            className="outline-none h-inherit bg-transparent"
+            className="outline-none w-inherit h-inherit bg-transparent"
             aria-invalid={invalid}
+            {...props}
           />
         </div>
       );
@@ -107,15 +109,15 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
 
     return (
       <input
-        {...props}
         ref={ref}
         size={htmlSize}
         type={type}
         className={mergedClasses}
         aria-invalid={invalid}
+        {...props}
       />
     );
-  },
+  }
 );
 
 export default Input;
