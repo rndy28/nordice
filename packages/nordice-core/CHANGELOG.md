@@ -1,5 +1,40 @@
 # @nordice/core
 
+## 1.0.0
+
+### Major Changes
+
+- da64c2c: ## initial stable release.
+
+  ### new components
+
+  - Area chart
+  - AppShell
+  - Bar chart
+  - Dialog (only the template)
+  - Form
+  - Doughnut chart
+  - Table
+  - Dropdown Menu
+  - Form (for wrapper around error mesage and group)
+  - Skeleton
+  - Tabs
+  - Checkbox
+  - Close (general close button)
+  - Hamburger
+  - Loader
+  - Textbox
+
+  ### modified component
+
+  - Button
+  - Input
+  - Avatar
+
+  ### misc
+
+  - add a bunch of utilities for component
+
 ## 0.0.3
 
 ### Patch Changes
