@@ -42,7 +42,7 @@
     "@tabler/icons": "^1.103.0",
     "chart.js": "^3.9.1",
     "clsx": "^1.2.1",
-    "framer-motion": "^7.0.0",
+    "framer-motion": "^10.0.1",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "18.1.0",
     "tailwind-merge": "^1.9.1"
