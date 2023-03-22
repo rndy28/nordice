@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- da64c2c: ## initial stable release.
+- da64c2c: initial stable release.
 
   ### new components
 
@@ -34,6 +34,7 @@
   ### misc
 
   - add a bunch of utilities for component
+  - add dashboard example (wip)
 
 ## 0.0.3
 
