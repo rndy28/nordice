@@ -1,4 +1,4 @@
-import { IconAlertTriangle } from "@tabler/icons";
+import { IconAlertTriangle } from "@tabler/icons-react";
 import { Button } from "@nordice/core";
 import { useNavigate } from "react-router-dom";
 
