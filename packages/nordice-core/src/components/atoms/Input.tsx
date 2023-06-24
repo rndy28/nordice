@@ -30,17 +30,17 @@ const getMappedColorScheme = ({
   // if readonly then dont allow show caret but allow focus state etc(click, hover)
 
   return {
-    filled: `bg-snowStorm2-500 text-polarNight2 border-2 ${
-      disabledClass ||
-      (readonlyClass && (error || "border-transparent hover:border-frost2 active:border-frost2"))
-    }`,
+    filled:
+      "bg-snowStorm2-500 text-polarNight2 border-2" +
+      ` ${
+        disabledClass || error || "border-transparent hover:border-frost2 active:border-frost2"
+      } ${readonlyClass || ""}`,
     outline: `border-2 bg-white text-polarNight2 ${
-      disabledClass || (readonlyClass && (error || "border-frost2"))
-    }`,
+      disabledClass || error || "border-frost2"
+    } ${readonlyClass || ""}`,
     underline: `text-polarNight2 border-b-2 ${
-      disabledClass ||
-      (readonlyClass && (error || "border-snowStorm0 hover:border-frost2 active:border-frost2"))
-    }`,
+      disabledClass || error || "border-snowStorm0 hover:border-frost2 active:border-frost2"
+    } ${readonlyClass || ""}`,
   };
 };
 
