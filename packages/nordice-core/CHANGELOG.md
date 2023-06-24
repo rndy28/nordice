@@ -1,5 +1,11 @@
 # @nordice/core
 
+## 1.0.1
+
+### Patch Changes
+
+- 55a2b22: Add visual support for input readonly and disabled state
+
 ## 1.0.0
 
 ### Major Changes
