@@ -1,33 +1,45 @@
 import clsx from "clsx";
 import * as React from "react";
-import type { TMappedSize, TSize, TWithIcon,  TUnionToKeys } from "../../types";
-import { IconChevronUp } from "@tabler/icons";
+import type { TMappedSize, TSize, TWithIcon, TUnionToKeys, TBooleanish } from "../../types";
 
 type TInputVariant = "filled" | "outline" | "underline";
 
-interface Props
-  extends Omit<React.ComponentPropsWithoutRef<"input">, "size" | "type"> {
+interface Props extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
   size: TSize;
-  type?: React.HTMLInputTypeAttribute | "dropdown" | "combobox";
   variant?: TInputVariant;
   htmlSize?: number;
   icon?: TWithIcon;
   iconWrapperClassName?: string;
 }
 
-const getMappedColorScheme = (
-  invalid: boolean | "false" | "true" | "grammar" | "spelling" | undefined
-): TUnionToKeys<TInputVariant, string> => {
+const getMappedColorScheme = ({
+  invalid,
+  disabled,
+  readonly,
+}: {
+  invalid: TBooleanish | "grammar" | "spelling";
+  readonly: TBooleanish;
+  disabled: TBooleanish;
+}): TUnionToKeys<TInputVariant, string> => {
   const error = invalid && "border-aurora0";
+  const readonlyClass = readonly && "caret-transparent";
+  const disabledClass = disabled && "caret-transparent opacity-50";
+
+  // if disabled then dont allow show caret and dont allow anything
+
+  // if readonly then dont allow show caret but allow focus state etc(click, hover)
+
   return {
     filled: `bg-snowStorm2-500 text-polarNight2 border-2 ${
-      error || "border-transparent hover:border-frost2 active:border-frost2"
+      disabledClass ||
+      (readonlyClass && (error || "border-transparent hover:border-frost2 active:border-frost2"))
     }`,
     outline: `border-2 bg-white text-polarNight2 ${
-      error || "border-frost2"
+      disabledClass || (readonlyClass && (error || "border-frost2"))
     }`,
     underline: `text-polarNight2 border-b-2 ${
-      error || "border-snowStorm0 hover:border-frost2 active:border-frost2"
+      disabledClass ||
+      (readonlyClass && (error || "border-snowStorm0 hover:border-frost2 active:border-frost2"))
     }`,
   };
 };
@@ -46,8 +58,7 @@ const mapSizeWithPadding: TMappedSize = {
   lg: "px-4",
 };
 
-const base =
-  "w-full text-[0.913rem] font-medium transition-[border] ease-linear";
+const base = "w-full text-[0.913rem] font-medium transition-[border] ease-linear";
 
 const Input = React.forwardRef<HTMLInputElement, Props>(
   (
@@ -60,9 +71,13 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       iconWrapperClassName,
       htmlSize,
       "aria-invalid": invalid,
+      "aria-readonly": ariaReadonly,
+      "aria-disabled": ariaDisabled,
+      disabled,
+      readOnly,
       ...props
     },
-    ref
+    ref,
   ) => {
     const isNotUnderline = variant !== "underline";
     const withRounded = isNotUnderline && "rounded-md";
@@ -74,8 +89,8 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       withRounded,
       withPadding,
       mappedSize[size],
-      getMappedColorScheme(invalid)[variant],
-      className
+      getMappedColorScheme({ disabled: ariaDisabled, invalid, readonly: ariaReadonly })[variant],
+      className,
     );
 
     if (icon && "element" in icon) {
@@ -88,8 +103,8 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         withPlacement,
         withPadding,
         mappedSize[size],
-        getMappedColorScheme(invalid)[variant],
-        iconWrapperClassName
+        getMappedColorScheme({ disabled: ariaDisabled, invalid, readonly: ariaReadonly })[variant],
+        iconWrapperClassName,
       );
 
       return (
@@ -99,8 +114,12 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
             ref={ref}
             size={htmlSize}
             type={type}
-            className="outline-none w-inherit h-inherit bg-transparent"
+            className="w-inherit h-inherit bg-transparent outline-none"
             aria-invalid={invalid}
+            aria-disabled={ariaDisabled}
+            aria-readonly={ariaReadonly}
+            disabled={Boolean(ariaDisabled)}
+            readOnly={Boolean(ariaReadonly)}
             {...props}
           />
         </div>
@@ -114,10 +133,14 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         type={type}
         className={mergedClasses}
         aria-invalid={invalid}
+        aria-disabled={ariaDisabled}
+        aria-readonly={ariaReadonly}
+        disabled={Boolean(ariaDisabled)}
+        readOnly={Boolean(ariaReadonly)}
         {...props}
       />
     );
-  }
+  },
 );
 
 export default Input;
