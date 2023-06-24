@@ -1,5 +1,11 @@
 # @nordice/core
 
+## 1.0.2
+
+### Patch Changes
+
+- 9a6d1d8: Fix input invalid state
+
 ## 1.0.1
 
 ### Patch Changes
