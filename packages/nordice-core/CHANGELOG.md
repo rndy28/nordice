@@ -1,5 +1,11 @@
 # @nordice/core
 
+## 1.1.0
+
+### Minor Changes
+
+- 85a7a6f: Add combobox component
+
 ## 1.0.2
 
 ### Patch Changes
