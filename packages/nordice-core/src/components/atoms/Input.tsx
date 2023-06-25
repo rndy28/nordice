@@ -4,7 +4,7 @@ import type { TMappedSize, TSize, TWithIcon, TUnionToKeys, TBooleanish } from ".
 
 type TInputVariant = "filled" | "outline" | "underline";
 
-interface Props extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
+export interface Props extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
   size: TSize;
   variant?: TInputVariant;
   htmlSize?: number;

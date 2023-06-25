@@ -1,5 +1,4 @@
 import { Avatar } from "@nordice/core";
-import { IconBell } from "@tabler/icons-react";
 import SearchBar from "components/UI/molecules/Searchbar";
 
 const Header = () => {
