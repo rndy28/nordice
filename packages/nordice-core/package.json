@@ -1,7 +1,7 @@
 {
   "name": "@nordice/core",
   "description": "Core React components for nordice design system",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
