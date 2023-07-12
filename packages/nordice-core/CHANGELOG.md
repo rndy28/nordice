@@ -1,5 +1,11 @@
 # @nordice/core
 
+## 1.1.1
+
+### Patch Changes
+
+- c5ba6fc: Enable tailwind classes to be merge and replaced
+
 ## 1.1.0
 
 ### Minor Changes
