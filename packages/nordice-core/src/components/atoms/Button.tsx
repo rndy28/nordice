@@ -1,6 +1,6 @@
-import clsx from "clsx";
 import * as React from "react";
-import type { TMappedSize, TSize, TWithIcon,TUnionToKeys } from "../../types";
+import type { TMappedSize, TSize, TWithIcon, TUnionToKeys } from "../../types";
+import { cn } from "../../utils";
 
 type TButtonVariant = "solid" | "outline" | "ghost" | "link";
 type TButtonColorScheme = "primary" | "secondary" | "warning" | "error";
@@ -16,13 +16,9 @@ export type ButtonProps = {
   icon?: TWithIcon;
 };
 
-type Props = ButtonProps &
-  Omit<React.ComponentPropsWithoutRef<"button">, "disabled">;
+type Props = ButtonProps & Omit<React.ComponentPropsWithoutRef<"button">, "disabled">;
 
-const mappedColorScheme: TUnionToKeys<
-  TButtonVariant,
-  TUnionToKeys<TButtonColorScheme, string>
-> = {
+const mappedColorScheme: TUnionToKeys<TButtonVariant, TUnionToKeys<TButtonColorScheme, string>> = {
   solid: {
     primary: "bg-polarNight2 text-snowStorm2 hover:border-polarNight2-500",
     secondary: "bg-frost3 text-snowStorm2 hover:border-frost3-500",
@@ -36,8 +32,7 @@ const mappedColorScheme: TUnionToKeys<
     warning: "text-aurora2 hover:bg-aurora2-100",
   },
   outline: {
-    primary:
-      "border-polarNight2 text-polarNight2 hover:bg-polarNight2 hover:text-snowStorm2",
+    primary: "border-polarNight2 text-polarNight2 hover:bg-polarNight2 hover:text-snowStorm2",
     secondary: "border-frost2 text-frost2 hover:bg-frost2-100",
     error: "border-aurora0 text-aurora0 hover:bg-aurora0-100",
     warning: "border-aurora2 text-polarNight2 hover:bg-aurora2-100",
@@ -61,7 +56,7 @@ const DefaultLoader = () => {
   return (
     <>
       <svg
-        className="w-5 h-5 text-nord6 animate-spin relative -top-[1px]"
+        className="text-nord6 relative -top-[1px] h-5 w-5 animate-spin"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -100,11 +95,9 @@ export function createButtonStyle({
   const withGapBetweenLoadingText = loadingText && "gap-2";
   const withRelativeLoading = isLoading && "relative";
   const withDisabled =
-    (disabled || isLoading) &&
-    "shadow-[0_1px_0_rgb(0 0 0 / 45%)] cursor-default opacity-[0.5]";
+    (disabled || isLoading) && "shadow-[0_1px_0_rgb(0 0 0 / 45%)] cursor-default opacity-[0.5]";
   const withPlacement = icon?.placement === "end" && "flex-row-reverse";
-  const withPrimaryAdditionalStyles =
-    variant === "solid" && "border-2 border-transparent";
+  const withPrimaryAdditionalStyles = variant === "solid" && "border-2 border-transparent";
   const withOutlineAdditionalStyles = variant === "outline" && "border-2";
 
   const withLoadingText = loadingText ?? (
@@ -121,9 +114,7 @@ export function createButtonStyle({
       <div
         role="status"
         className={
-          loadingText
-            ? "pt-[2px]"
-            : "absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
+          loadingText ? "pt-[2px]" : "absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
         }
       >
         {withSpinner}
@@ -137,7 +128,7 @@ export function createButtonStyle({
     </>
   );
 
-  const mergedClasses = clsx(
+  const mergedClasses = cn(
     "flex items-center justify-center px-8 transition-all ease-in font-semibold cursor-pointer",
     mappedColorScheme[variant][colorScheme],
     mappedSize[size],
@@ -148,7 +139,7 @@ export function createButtonStyle({
     withPlacement,
     withPrimaryAdditionalStyles,
     withOutlineAdditionalStyles,
-    className
+    className,
   );
 
   return {
@@ -173,7 +164,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       "aria-disabled": disabled,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { mergedClasses, withLoading } = createButtonStyle({
       children,
@@ -190,16 +181,11 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
     });
 
     return (
-      <button
-        aria-disabled={isLoading || disabled}
-        className={mergedClasses}
-        ref={ref}
-        {...props}
-      >
+      <button aria-disabled={isLoading || disabled} className={mergedClasses} ref={ref} {...props}>
         {withLoading}
       </button>
     );
-  }
+  },
 );
 
 export default Button;
